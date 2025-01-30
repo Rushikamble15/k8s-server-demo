@@ -5,7 +5,7 @@ pipeline {
         DOCKER_USERNAME = 'rushikesh151999'
         DOCKER_CREDENTIALS = credentials('docker-hub-cred')
         BUILD_TAG = "v${BUILD_NUMBER}"
-        KUBECONFIG = '/var/lib/jenkins/.kube/config' // Path where you copied the kubeconfig
+        KUBECONFIG = '/var/lib/jenkins/.minikube/config'
     }
 
     stages {
@@ -67,6 +67,7 @@ pipeline {
             steps {
                 script {
                     sh """
+                        export KUBECONFIG=/var/lib/jenkins/.kube/config
                         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
                         helm repo update
                         helm upgrade --install monitoring prometheus-community/kube-prometheus-stack -f k8s/helm/values.yaml -n monitoring --create-namespace
