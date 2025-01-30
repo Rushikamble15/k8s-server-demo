@@ -63,18 +63,18 @@ pipeline {
             }
         }
 
-        stage('Deploy Monitoring Stack') {
-            steps {
-                script {
-                    sh """
-                        export KUBECONFIG=/var/lib/jenkins/.kube/config
-                        helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-                        helm repo update
-                        helm upgrade --install monitoring prometheus-community/kube-prometheus-stack -f k8s/helm/values.yaml -n monitoring --create-namespace
-                    """
-                }
-            }
-        }
+        // stage('Deploy Monitoring Stack') {
+        //     steps {
+        //         script {
+        //             sh """
+        //                 export KUBECONFIG=/var/lib/jenkins/.kube/config
+        //                 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+        //                 helm repo update
+        //                 helm upgrade --install monitoring prometheus-community/kube-prometheus-stack -f k8s/helm/values.yaml -n monitoring --create-namespace
+        //             """
+        //         }
+        //     }
+        // }
 
         stage('Deploy Kubernetes Dashboard') {
             steps {
