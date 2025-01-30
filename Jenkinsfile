@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_USERNAME = 'rushikesh151999'
         DOCKER_CREDENTIALS = credentials('docker-hub-cred')
-        BUILD_TAG = "v${BUILD_NUMBER}"  // Dynamic build tag
+        BUILD_TAG = "v${BUILD_NUMBER}"
     }
 
     stages {
@@ -18,7 +18,7 @@ pipeline {
             parallel {
                 stage('Build Frontend') {
                     steps {
-                        dir('frontend') {
+                        dir('frontend/todolist') {
                             sh "docker build -t ${DOCKER_USERNAME}/k8s-frontend:${BUILD_TAG} ."
                         }
                     }
@@ -51,12 +51,12 @@ pipeline {
                 script {
                     // Update frontend deployment with the new image tag
                     sh """
-                        sed -i 's|rushikesh151999/k8s-frontend:.*|rushikesh151999/k8s-frontend:${BUILD_TAG}|g' k8s/deployment.yaml
+                        sed -i 's|rushikesh151999/k8s-frontend:.*|rushikesh151999/k8s-frontend:${BUILD_TAG}|g' k8s/frontend/deployment.yaml
                     """
 
                     // Update backend deployment with the new image tag
                     sh """
-                        sed -i 's|rushikesh151999/k8s-backend:.*|rushikesh151999/k8s-backend:${BUILD_TAG}|g' k8s/deployment.yaml
+                        sed -i 's|rushikesh151999/k8s-backend:.*|rushikesh151999/k8s-backend:${BUILD_TAG}|g' k8s/backend/deployment.yaml
                     """
                 }
             }
@@ -68,7 +68,7 @@ pipeline {
                     sh """
                         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
                         helm repo update
-                        helm upgrade --install monitoring prometheus-community/kube-prometheus-stack -f values.yaml -n monitoring --create-namespace
+                        helm upgrade --install monitoring prometheus-community/kube-prometheus-stack -f k8s/helm/values.yaml -n monitoring --create-namespace
                     """
                 }
             }
@@ -78,7 +78,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                        kubectl apply -f kubernetes-dashboard.yaml
+                        kubectl apply -f k8s/monitoring/kubernetes-dashboard.yaml
                     """
                 }
             }
@@ -89,10 +89,8 @@ pipeline {
                 script {
                     sh """
                         kubectl apply -f k8s/mysql/
-                        kubectl apply -f k8s/monitoring/
                         kubectl apply -f k8s/backend/
                         kubectl apply -f k8s/frontend/
-                        kubectl apply -f k8s/helm/
                     """
                 }
             }
