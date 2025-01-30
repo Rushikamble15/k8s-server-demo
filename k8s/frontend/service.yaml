@@ -5,8 +5,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 80
-    targetPort: 80
-    nodePort: 30001  # Fixed port for frontend
+    - port: 80
+      targetPort: 80
+      nodePort: 30001  # Fixed port for frontend
   selector:
     app: frontend
