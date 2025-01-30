@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/Rushikamble15/k8s-server-demo.git'
+                git branch: 'main', url: 'https://github.com/Rushikamble15/k8s-demo.git'
             }
         }
 
