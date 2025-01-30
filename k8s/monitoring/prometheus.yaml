@@ -1,0 +1,32 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  replicas: 1
+  serviceAccountName: prometheus
+  serviceMonitorSelector:
+    matchLabels:
+      app: k8s-backend
+  resources:
+    requests:
+      memory: "400Mi"
+      cpu: "200m"
+    limits:
+      memory: "800Mi"
+      cpu: "500m"
+  ruleSelector:
+    matchLabels:
+      role: prometheus-rulefiles
+      prometheus: prometheus
+  alerting:
+    alertmanagers:
+    - namespace: monitoring
+      name: alertmanager
+      port: web
+  additionalScrapeConfigs:
+    - job_name: 'nodejs-app'
+      scrape_interval: 15s
+      static_configs:
+        - targets: ['k8s-backend:3001']  # Scrape metrics from your backend service

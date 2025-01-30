@@ -1,0 +1,29 @@
+prometheus:
+  service:
+    type: NodePort
+    nodePort: 30090
+  alertmanager:
+    enabled: false
+  pushgateway:
+    enabled: false
+  server:
+    persistentVolume:
+      enabled: false
+
+grafana:
+  adminUser: admin
+  adminPassword: admin
+  service:
+    type: NodePort
+    nodePort: 30000
+  persistence:
+    enabled: false
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus:9090
+        access: proxy
+        isDefault: true
