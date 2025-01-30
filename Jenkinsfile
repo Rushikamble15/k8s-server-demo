@@ -5,7 +5,7 @@ pipeline {
         DOCKER_USERNAME = 'rushikesh151999'
         DOCKER_CREDENTIALS = credentials('docker-hub-cred')
         BUILD_TAG = "v${BUILD_NUMBER}"
-        KUBECONFIG = '/var/lib/jenkins/.minikube/config'
+      
     }
 
     stages {
