@@ -89,7 +89,10 @@ pipeline {
                 script {
                     sh """
                         kubectl apply -f k8s/mysql/
-                        kubectl apply -f k8s/deployment.yaml
+                        kubectl apply -f k8s/monitoring/
+                        kubectl apply -f k8s/backend/
+                        kubectl apply -f k8s/frontend/
+                        kubectl apply -f k8s/helm/
                     """
                 }
             }
