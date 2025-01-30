@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: rushikesh151999/todo-frontend:v157
+        image: rushikesh151999/k8s-frontend:${BUILD_TAG}  # Will be replaced by Jenkins
         ports:
         - containerPort: 80
