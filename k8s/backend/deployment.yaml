@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: k8s-backend
   labels:
-    app: backend
+    app: k8s-backend
   annotations:
-    prometheus.io/scrape: "true"        # Enable scraping
-    prometheus.io/port: "3001"          # Backend port where Prometheus metrics are exposed
-    prometheus.io/path: "/metrics"      # Metrics endpoint
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "3001"
+    prometheus.io/path: "/metrics"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: k8s-backend
   template:
     metadata:
       labels:
-        app: backend
+        app: k8s-backend
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "3001"
         prometheus.io/path: "/metrics"
     spec:
       containers:
-      - name: backend
-        image: rushikesh151999/todo-backend:latest
+      - name: k8s-backend
+        image: rushikesh151999/k8s-backend:${BUILD_TAG}  # Will be replaced by Jenkins
         ports:
         - containerPort: 3001
         env:
