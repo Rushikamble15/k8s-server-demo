@@ -3,11 +3,10 @@ kind: Service
 metadata:
   name: k8s-backend
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 3001
     targetPort: 3001
-    nodePort: 30001
     protocol: TCP
   selector:
     app: k8s-backend
