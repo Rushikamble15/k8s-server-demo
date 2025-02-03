@@ -1,19 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: k8s-frontend
+  labels:
+    app: k8s-frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: k8s-frontend
   template:
     metadata:
       labels:
-        app: frontend
+        app: k8s-frontend
     spec:
       containers:
-      - name: frontend
-        image: rushikesh151999/k8s-frontend:${BUILD_TAG}  # Will be replaced by Jenkins
+      - name: k8s-frontend
+        image: rushikesh151999/k8s-frontend:${BUILD_TAG}
         ports:
         - containerPort: 80
+          hostPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
