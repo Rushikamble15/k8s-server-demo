@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: backend
 spec:
-  type: NodePort
-  ports:
-    - port: 3001
-      targetPort: 3001  # Ensures traffic goes to the correct container port
-      nodePort: 30002   # Explicitly sets the external port (optional)
   selector:
     app: backend
+  ports:
+    - protocol: TCP
+      port: 3001
+      targetPort: 3001
+      nodePort: 30002
+  type: NodePort
