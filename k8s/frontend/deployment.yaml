@@ -19,7 +19,8 @@ spec:
         image: rushikesh151999/k8s-frontend:${BUILD_TAG}
         ports:
         - containerPort: 80
-          hostPort: 3000
         env:
         - name: NODE_ENV
           value: "production"
+        - name: HOST
+          value: "0.0.0.0"
