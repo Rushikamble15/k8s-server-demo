@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
+  name: k8s-backend
 spec:
+  type: NodePort
+  ports:
+  - port: 3001
+    targetPort: 3001
+    nodePort: 3001
+    protocol: TCP
   selector:
     app: k8s-backend
-  ports:
-    - protocol: TCP
-      port: 3001
-      targetPort: 3001
-      nodePort: 30002
-  type: NodePort
