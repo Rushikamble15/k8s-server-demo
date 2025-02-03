@@ -76,15 +76,15 @@ pipeline {
         //     }
         // }
 
-        stage('Deploy Kubernetes Dashboard') {
-            steps {
-                script {
-                    sh """
-                        kubectl apply -f k8s/monitoring/kubernetes-dashboard.yaml
-                    """
-                }
-            }
-        }
+        // stage('Deploy Kubernetes Dashboard') {
+        //     steps {
+        //         script {
+        //             sh """
+        //                 kubectl apply -f k8s/monitoring/kubernetes-dashboard.yaml
+        //             """
+        //         }
+        //     }
+        // }
 
         stage('Deploy Application') {
             steps {
