@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
-const BACKEND_URL = 'http://localhost:30001'; // Fixed backend URL
+const BACKEND_URL = 'http://164.52.223.7:30001'; // Fixed backend URL
 
 function App() {
   const [todos, setTodos] = useState([]);
