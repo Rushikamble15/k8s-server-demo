@@ -9,4 +9,4 @@ spec:
       targetPort: 80
       nodePort: 30001
   selector:
-    app: frontend
+    app: k8s-frontend
